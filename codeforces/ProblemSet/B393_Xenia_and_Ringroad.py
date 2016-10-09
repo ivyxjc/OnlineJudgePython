@@ -17,4 +17,4 @@ for i in range(len(bb)-1):
         res+=a[0]+bb[i+1]-bb[i]
     else:
         res+=0
-print(res)
+
