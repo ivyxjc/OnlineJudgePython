@@ -17,23 +17,23 @@ def format(file):
     _pattern=re.compile('---')
     _match=re.finditer(_pattern,a)
 
-    try:
-        _start1=next(_match).start()
-        _start2=next(_match).start()
-        a=replace(a,_start1,_start1+1,'<!')
-        a=replace(a,_start2+3,_start2+4,'>')
-    except StopIteration:
-        print(file+ " _ not match")
+    # try:
+    #     _start1=next(_match).start()
+    #     _start2=next(_match).start()
+    #     a=replace(a,_start1,_start1+1,'<!')
+    #     a=replace(a,_start2+3,_start2+4,'>')
+    # except StopIteration:
+    #     print(file+ " _ not match")
 
 
 
-    dataPattern=re.compile('data:\s+\d\d\d\d')
-    dataMatch=re.search(dataPattern,a)
-    if (dataMatch is not None):
-
-        a=replace(a,dataMatch.start()+3,dataMatch.start()+4,'e')
-    else:
-        print(file+ " data not match")
+    # dataPattern=re.compile('data:\s+\d\d\d\d')
+    # dataMatch=re.search(dataPattern,a)
+    # if (dataMatch is not None):
+    #
+    #     a=replace(a,dataMatch.start()+3,dataMatch.start()+4,'e')
+    # else:
+    #     print(file+ " data not match")
 
 
     layoutPattern=re.compile('layout: post')
@@ -42,32 +42,32 @@ def format(file):
         a=replace(a,layoutMatch.start(),layoutMatch.end(),'author: ivyxjc\ndate: '+file[dateMatch.start():dateMatch.end()])
     else:
         print(file+ " layout not match")
-
-    tagsPattern=re.compile('tags:(.*)\n')
-    tagsMatch=re.search(tagsPattern,a)
-    tags=a[tagsMatch.start():tagsMatch.end()]
-    if(re.search(re.compile('\['),tags)):
-        bracketLeft=re.search(re.compile('\['),tags)
-        tags=replace(tags,bracketLeft.start(),bracketLeft.start()+1,'')
-        bracketRight=re.search(re.compile(']'),tags)
-        tags=replace(tags,bracketRight.start(),bracketRight.start()+1,'')
-        a=replace(a,tagsMatch.start(),tagsMatch.end(),tags+'status: publish\n')
-    else:
-        pass
-
-    keywordsPattern=re.compile('keywords:')
-    keyMatch=re.search(keywordsPattern,a)
-    if(keyMatch is not None):
-        a=replace(a,keyMatch.start(),keyMatch.end()+1,'')
-    else:
-        print(file + " key not match")
-
-    descriPattern=re.compile('description:')
-    descriMatch=re.search(descriPattern,a)
-    if(descriMatch is not None):
-        a=replace(a,descriMatch.start(),descriMatch.end(),'summary: ')
-    else:
-        print(file + " description not match")
+    #
+    # tagsPattern=re.compile('tags:(.*)\n')
+    # tagsMatch=re.search(tagsPattern,a)
+    # tags=a[tagsMatch.start():tagsMatch.end()]
+    # if(re.search(re.compile('\['),tags)):
+    #     bracketLeft=re.search(re.compile('\['),tags)
+    #     tags=replace(tags,bracketLeft.start(),bracketLeft.start()+1,'')
+    #     bracketRight=re.search(re.compile(']'),tags)
+    #     tags=replace(tags,bracketRight.start(),bracketRight.start()+1,'')
+    #     a=replace(a,tagsMatch.start(),tagsMatch.end(),tags+'status: publish\n')
+    # else:
+    #     pass
+    #
+    # keywordsPattern=re.compile('keywords:')
+    # keyMatch=re.search(keywordsPattern,a)
+    # if(keyMatch is not None):
+    #     a=replace(a,keyMatch.start(),keyMatch.end()+1,'')
+    # else:
+    #     print(file + " key not match")
+    #
+    # descriPattern=re.compile('description:')
+    # descriMatch=re.search(descriPattern,a)
+    # if(descriMatch is not None):
+    #     a=replace(a,descriMatch.start(),descriMatch.end(),'summary: ')
+    # else:
+    #     print(file + " description not match")
 
 
     with open(file,'w',encoding='utf-8') as f:
